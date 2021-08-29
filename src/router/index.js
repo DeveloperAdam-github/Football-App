@@ -1,25 +1,60 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '../views/Home.vue';
+import Signin from '../views/Signin.vue';
+import LiveScores from '../views/LiveScores.vue';
+import MyTeams from '../views/MyTeams.vue';
+import LeagueTables from '../views/LeagueTables.vue';
+import TopScorers from '../views/TopScorers.vue';
+import Fixtures from '../views/Fixtures.vue';
+import GameStats from '../views/GameStats.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+    path: '/signin',
+    name: 'Signin',
+    component: Signin,
+  },
+  {
+    path: '/livescores',
+    name: 'LiveScores',
+    component: LiveScores,
+  },
+  {
+    path: '/myteams',
+    name: 'MyTeams',
+    component: MyTeams,
+  },
+  {
+    path: '/leaguetables',
+    name: 'LeagueTables',
+    component: LeagueTables,
+  },
+  {
+    path: '/topscorers',
+    name: 'TopScorers',
+    component: TopScorers,
+  },
+  {
+    path: '/fixtures',
+    name: 'Fixtures',
+    component: Fixtures,
+  },
+  {
+    path: '/gameStats/:id',
+    name: 'GameStats',
+    component: GameStats,
+    // props: true,
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
