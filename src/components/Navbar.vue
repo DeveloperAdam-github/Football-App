@@ -5,10 +5,20 @@
         ><span class="material-icons">home</span>
         <p>Home</p></router-link
       >
-      <router-link to="/signin">
-        <span class="material-icons">person</span>
-        <p>Sign In</p>
-      </router-link>
+      <div v-if="!user">
+        <router-link to="/signin">
+          <span class="material-icons">person</span>
+          <p>Sign In</p>
+        </router-link>
+      </div>
+
+      <div v-if="user">
+        <router-link to="/profile">
+          <span class="material-icons">person</span>
+          <p>Profile</p>
+        </router-link>
+      </div>
+
       <router-link :to="{ name: 'LiveScores' }"
         ><span class="material-icons">sports_soccer</span>
         <p>Live Scores</p></router-link
@@ -34,7 +44,17 @@
 </template>
 
 <script>
-export default {};
+import { computed, watch } from '@vue/runtime-core';
+import getUser from '../composables/getUser';
+export default {
+  setup(props) {
+    const { user } = getUser();
+
+    const userWatch = computed(user);
+
+    return { user, userWatch };
+  },
+};
 </script>
 
 <style scoped>

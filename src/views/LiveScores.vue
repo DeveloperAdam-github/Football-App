@@ -1,42 +1,60 @@
 <template>
-  <h1>live scores</h1>
+  <div class="container">
+    <header>
+      <h1>Live Game Scores</h1>
+      <h4>{{ new Date().toDateString() }}</h4>
+    </header>
+
+    <div class="games-container">
+      <FixtureCard :renderedLastTenGames="renderedLastTenGames" />
+    </div>
+    <h2 style="color: red" v-if="renderedLastTenGames.length === 0">
+      There are no live games right now, check back later.
+    </h2>
+  </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import FixtureCard from '../components/FixtureCard.vue';
+import getLiveFixtures from '../composables/getLiveFixtures';
 export default {
+  components: { FixtureCard },
   setup() {
-    const fixtures = ref(null);
-    const error = ref(null);
-
-    const load = async () => {
-      try {
-        const statData = await fetch(
-          'https://api-football-beta.p.rapidapi.com/fixtures?id=710574',
-          {
-            method: 'GET',
-            headers: {
-              'x-rapidapi-host': 'api-football-beta.p.rapidapi.com',
-              'x-rapidapi-key':
-                '5ee839aacfmsh9ead2a5c2e634cep1e4af1jsn6cf3f3f58df2',
-            },
-          }
-        );
-        if (!statData.ok) {
-          throw Error('Data wasnt retrieved');
-        }
-        fixtures.value = await statData.json();
-        console.log(fixtures.value, 'fixtures value from api call');
-      } catch (err) {
-        error.value = err.message;
-      }
-    };
+    const { liveFixtures, error, load } = getLiveFixtures();
 
     load();
 
-    return { fixtures, error, load };
+    let renderedLastTenGames = computed(() => {
+      if (liveFixtures.value) {
+        return liveFixtures?.value?.response?.map((liveGame) => {
+          // console.log(liveGame, 'im the single live game');
+          return liveGame;
+        });
+      }
+      // console.log(renderedLastTenGames, 'im the live games');
+    });
+
+    return { liveFixtures, error, renderedLastTenGames };
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.games-container {
+  width: 100%;
+  margin-bottom: 30px;
+}
+header {
+  margin: 1rem;
+}
+.container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  overflow: scroll;
+}
+</style>

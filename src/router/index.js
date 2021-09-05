@@ -7,6 +7,19 @@ import LeagueTables from '../views/LeagueTables.vue';
 import TopScorers from '../views/TopScorers.vue';
 import Fixtures from '../views/Fixtures.vue';
 import GameStats from '../views/GameStats.vue';
+import Profile from '../views/Profile.vue';
+import { projectAuth } from '../firebase/config';
+import getUser from '../composables/getUser';
+
+// ROUTER & AUTHORIZIATION GUARD
+const requireAuth = (to, from, next) => {
+  let user = projectAuth.currentUser;
+  if (!user) {
+    next({ name: 'Home' });
+  } else {
+    next();
+  }
+};
 
 const routes = [
   {
@@ -18,6 +31,15 @@ const routes = [
     path: '/signin',
     name: 'Signin',
     component: Signin,
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
+    beforeEnter: requireAuth,
+    beforeRouteLeave(to, from, next) {
+      next(getUser());
+    },
   },
   {
     path: '/livescores',

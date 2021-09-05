@@ -207,8 +207,9 @@ export default {
   background-color: transparent;
   color: white;
   font-weight: 900;
+  padding: 10px;
   display: flex;
-  font-size: 17px;
+  font-size: 15px;
   flex-direction: row;
 }
 
@@ -226,9 +227,11 @@ export default {
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
   justify-items: center;
-}@media screen and (max-width: 800px) {
+}
+@media screen and (max-width: 800px) {
   .home-line-up {
-    margin: 0;margin-bottom: 1rem;
+    margin: 0;
+    margin-bottom: 1rem;
   }
 }
 </style>

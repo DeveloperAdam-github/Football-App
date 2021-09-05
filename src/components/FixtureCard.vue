@@ -15,7 +15,7 @@
     <h2>{{ fixture.goals.home }}</h2>
     <span>
       <h3>-</h3>
-      <small>FT</small>
+      <!-- <small>FT</small> -->
     </span>
     <h2>{{ fixture.goals.away }}</h2>
     <img :src="fixture.teams.away.logo" alt="" />
@@ -68,7 +68,7 @@ img {
   min-height: 6rem;
   border-radius: 25px;
   padding: 1rem auto;
-  margin: 1rem auto;
+  margin: 1.5rem auto;
   display: flex;
   align-items: center;
   justify-content: space-around;

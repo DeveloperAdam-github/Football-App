@@ -3,6 +3,7 @@
     <header>
       <h1>Check out the games statistics..</h1>
       <h4>
+        Game Date:
         {{
           new Date(stats?.response[0]?.fixture?.timestamp * 1000).toDateString()
         }}
@@ -24,9 +25,6 @@
     </div>
 
     <!-- GOALSCORERS -->
-    <!-- <div v-if="event?.detail === 'Red Card'">
-        <p>🟥{{ event.player.name }}{{ ' ' }}{{ event.time.elapsed }}'</p>
-      </div> -->
     <div
       class="goalscorers"
       v-for="(event, index) in stats.response[0].events"
@@ -74,19 +72,19 @@
       <h5>Possession</h5>
       <div class="bar-container">
         <div class="bar-1" :style="[homeSwitch()]">
-          <p>{{ stats.response[0].statistics[0].statistics[9].value }}</p>
+          <p>{{ stats.response[0].statistics[0]?.statistics[9]?.value }}</p>
         </div>
         <div class="bar-2" :style="[awaySwitch()]">
-          <p>{{ stats.response[0].statistics[1].statistics[9].value }}</p>
+          <p>{{ stats.response[0].statistics[1]?.statistics[9]?.value }}</p>
         </div>
       </div>
       <h5>Shots</h5>
       <div class="bar-container">
         <div class="bar-1" :style="[homeSwitch()]">
-          <p>{{ stats.response[0].statistics[0].statistics[2].value }}</p>
+          <p>{{ stats.response[0].statistics[0]?.statistics[2]?.value }}</p>
         </div>
         <div class="bar-2" :style="[awaySwitch()]">
-          <p>{{ stats.response[0].statistics[1].statistics[2].value }}</p>
+          <p>{{ stats.response[0].statistics[1]?.statistics[2]?.value }}</p>
         </div>
       </div>
 
@@ -95,18 +93,18 @@
         <div class="bar-1" :style="[homeSwitch()]">
           <p>
             {{
-              stats.response[0].statistics[0].statistics[0].value === null
+              stats.response[0].statistics[0]?.statistics[0]?.value === null
                 ? 0
-                : stats.response[0].statistics[0].statistics[0].value
+                : stats.response[0].statistics[0]?.statistics[0]?.value
             }}
           </p>
         </div>
         <div class="bar-2" :style="[awaySwitch()]">
           <p>
             {{
-              stats.response[0].statistics[1].statistics[0].value === null
+              stats.response[0].statistics[1]?.statistics[0]?.value === null
                 ? 0
-                : stats.response[0].statistics[1].statistics[0].value
+                : stats.response[0].statistics[1]?.statistics[0]?.value
             }}
           </p>
         </div>
@@ -116,14 +114,14 @@
 
       <div class="bar-container">
         <div class="bar-1" :style="[homeSwitch()]">
-          <p>{{ stats.response[0].statistics[0].statistics[7].value }}</p>
+          <p>{{ stats.response[0].statistics[0]?.statistics[7]?.value }}</p>
         </div>
         <div class="bar-2" :style="[awaySwitch()]">
           <p>
             {{
-              stats.response[0].statistics[1].statistics[7].value === null
+              stats.response[0].statistics[1]?.statistics[7]?.value === null
                 ? 0
-                : stats.response[0].statistics[1].statistics[7].value
+                : stats.response[0].statistics[1]?.statistics[7]?.value
             }}
           </p>
         </div>
@@ -133,10 +131,10 @@
 
       <div class="bar-container">
         <div class="bar-1" :style="[homeSwitch()]">
-          <p>{{ stats.response[0].statistics[0].statistics[6].value }}</p>
+          <p>{{ stats.response[0].statistics[0]?.statistics[6]?.value }}</p>
         </div>
         <div class="bar-2" :style="[awaySwitch()]">
-          <p>{{ stats.response[0].statistics[1].statistics[6].value }}</p>
+          <p>{{ stats.response[0].statistics[1]?.statistics[6]?.value }}</p>
         </div>
       </div>
     </div>
@@ -188,6 +186,7 @@
       </div>
 
       <!-- AWAY LINE UPS -->
+
       <div v-if="stats.response[0].lineups[1].formation === '4-2-3-1'">
         <img :src="stats?.response[0].teams.away.logo" alt="" />
         <LineUpAway4231 :stats="stats" />
@@ -296,6 +295,9 @@ export default {
     const stats = ref(null);
     const error = ref(null);
     const route = useRoute();
+
+    const showHome = true;
+    const showAway = false;
 
     const homeSwitch = () => {
       switch (stats?.value?.response[0]?.teams?.home?.name) {
@@ -430,7 +432,17 @@ export default {
     };
     load();
 
-    return { stats, error, load, id, homeSwitch, awaySwitch, matchDate };
+    return {
+      stats,
+      error,
+      load,
+      id,
+      homeSwitch,
+      awaySwitch,
+      matchDate,
+      showHome,
+      showAway,
+    };
   },
 };
 </script>
