@@ -4,13 +4,13 @@
       <h4>Please Register for an account</h4>
 
       <label for="">Name</label>
-      <input type="text" v-model="name" />
+      <input type="text" v-model="displayName" required />
 
       <label for="">Email Address</label>
-      <input type="email" v-model="email" />
+      <input type="email" v-model="email" required />
 
       <label for="">Password</label>
-      <input type="password" v-model="password" />
+      <input type="password" v-model="password" required />
 
       <button>Register</button>
     </form>
@@ -18,7 +18,30 @@
 </template>
 
 <script>
-export default {};
+import { ref } from '@vue/reactivity';
+import useRegister from '../composables/useRegister';
+import { useRouter } from 'vue-router';
+export default {
+  setup(props, context) {
+    const displayName = ref('');
+    const email = ref('');
+    const password = ref('');
+    const router = useRouter();
+
+    const { error, register } = useRegister();
+
+    const handleSubmit = async () => {
+      await register(email.value, password.value, displayName.value);
+      console.log('user registered');
+      // if (!error.value) {
+      //   context.emit('login');
+      // }
+      router.push('/');
+    };
+
+    return { email, password, displayName, handleSubmit, error };
+  },
+};
 </script>
 
 <style scoped>

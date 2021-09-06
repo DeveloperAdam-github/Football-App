@@ -6,7 +6,7 @@ const user = ref(projectAuth.currentUser);
 projectAuth.onAuthStateChanged((_user) => {
   console.log(
     'User auth state has changed, the user is currently:',
-    _user.email
+    _user?.email
   );
   user.value = _user;
 });
