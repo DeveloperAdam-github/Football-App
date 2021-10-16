@@ -12,15 +12,18 @@
 
     <div class="stat-card">
       <img :src="stats?.response[0].teams.home.logo" alt="" />
-      <h1>{{ stats?.response[0].score.fulltime.home }}</h1>
+      <h1>{{ stats.response[0].goals.home }}</h1>
       <span>
         <h5 class="stadium-name">
           {{ stats?.response[0].fixture.venue.name }}
         </h5>
         <h3>-</h3>
-        <small>FT</small>
+        <small v-if="stats.response[0].fixture.status.elapsed == 90">FT</small>
+        <small v-else
+          >{{ stats.response[0].fixture.status.elapsed }} mins</small
+        >
       </span>
-      <h1>{{ stats?.response[0].score.fulltime.away }}</h1>
+      <h1>{{ stats.response[0].goals.away }}</h1>
       <img :src="stats?.response[0].teams.away.logo" alt="" />
     </div>
 
@@ -142,46 +145,57 @@
     <div class="line-up-container">
       <div v-if="stats.response[0].lineups[0].formation === '4-4-2'">
         <img :src="stats?.response[0].teams.home.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.home.name }}</h2>
         <LineUp442 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[0].formation === '4-2-3-1'">
         <img :src="stats?.response[0].teams.home.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.home.name }}</h2>
         <LineUp4231 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[0].formation === '3-4-3'">
         <img :src="stats?.response[0].teams.home.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.home.name }}</h2>
         <LineUp343 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[0].formation === '4-3-3'">
         <img :src="stats?.response[0].teams.home.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.home.name }}</h2>
         <LineUp433 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[0].formation === '3-4-2-1'">
         <img :src="stats?.response[0].teams.home.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.home.name }}</h2>
         <LineUp3421 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[0].formation === '3-3-3-1'">
         <img :src="stats?.response[0].teams.home.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.home.name }}</h2>
         <LineUp3331 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[0].formation === '4-1-4-1'">
         <img :src="stats?.response[0].teams.home.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.home.name }}</h2>
         <LineUp4141 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[0].formation === '3-5-2'">
         <img :src="stats?.response[0].teams.home.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.home.name }}</h2>
         <LineUp352 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[0].formation === '4-4-1-1'">
         <img :src="stats?.response[0].teams.home.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.home.name }}</h2>
         <LineUp4411 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[0].formation === '3-4-1-2'">
         <img :src="stats?.response[0].teams.home.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.home.name }}</h2>
         <LineUp3412 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[0].formation === '5-4-1'">
         <img :src="stats?.response[0].teams.home.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.home.name }}</h2>
         <LineUp541 :stats="stats" />
       </div>
 
@@ -189,46 +203,57 @@
 
       <div v-if="stats.response[0].lineups[1].formation === '4-2-3-1'">
         <img :src="stats?.response[0].teams.away.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.away.name }}</h2>
         <LineUpAway4231 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[1].formation === '4-4-2'">
         <img :src="stats?.response[0].teams.away.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.away.name }}</h2>
         <LineUpAway442 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[1].formation === '3-4-3'">
         <img :src="stats?.response[0].teams.away.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.away.name }}</h2>
         <LineUpAway343 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[1].formation === '4-3-3'">
         <img :src="stats?.response[0].teams.away.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.away.name }}</h2>
         <LineUpAway433 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[1].formation === '3-4-2-1'">
         <img :src="stats?.response[0].teams.away.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.away.name }}</h2>
         <LineUpAway3421 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[1].formation === '3-3-3-1'">
         <img :src="stats?.response[0].teams.away.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.away.name }}</h2>
         <LineUpAway3331 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[1].formation === '4-1-4-1'">
         <img :src="stats?.response[0].teams.away.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.away.name }}</h2>
         <LineUpAway4141 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[1].formation === '3-5-2'">
         <img :src="stats?.response[0].teams.away.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.away.name }}</h2>
         <LineUpAway352 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[1].formation === '4-4-1-1'">
         <img :src="stats?.response[0].teams.away.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.away.name }}</h2>
         <LineUpAway4411 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[1].formation === '3-4-1-2'">
         <img :src="stats?.response[0].teams.away.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.away.name }}</h2>
         <LineUpAway3412 :stats="stats" />
       </div>
       <div v-if="stats.response[0].lineups[1].formation === '5-4-1'">
         <img :src="stats?.response[0].teams.away.logo" alt="" />
+        <h2>{{ stats?.response[0].teams.away.name }}</h2>
         <LineUpAway541 :stats="stats" />
       </div>
     </div>

@@ -1,12 +1,12 @@
 <template>
   <div class="form-container">
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="login">
       <h4>Please sign in to view your teams & more</h4>
       <label for="">Email Address</label>
-      <input type="email" v-model="email" />
+      <input type="email" v-model="user.email" />
 
       <label for="">Password</label>
-      <input type="password" v-model="password" />
+      <input type="password" v-model="user.password" />
 
       <button>Login</button>
     </form>
@@ -15,26 +15,32 @@
 
 <script>
 import { ref } from '@vue/reactivity';
-import useLogin from '../composables/useLogin';
 import { useRouter } from 'vue-router';
 export default {
-  setup(props, context) {
-    const email = ref('');
-    const password = ref('');
-    const router = useRouter();
-
-    const { error, login } = useLogin();
-
-    const handleSubmit = async () => {
-      await login(email.value, password.value);
-      console.log('user logged in');
-      if (!error.value) {
-        context.emit('login');
-      }
-      router.push('/');
+  data() {
+    return {
+      user: {
+        email: null,
+        password: null,
+      },
+      loading: false,
+      error: null,
     };
+  },
+  methods: {
+    async login() {
+      this.error = null;
 
-    return { email, password, handleSubmit, error };
+      try {
+        await this.$store.dispatch('login', this.user);
+        await this.$router.push({ name: 'Profile' });
+      } catch (error) {
+        this.error = error;
+      } finally {
+        this.loading = false;
+      }
+      console.log('logged in?');
+    },
   },
 };
 </script>

@@ -28,7 +28,7 @@ export default {
     let renderedLastTenGames = computed(() => {
       if (liveFixtures.value) {
         return liveFixtures?.value?.response?.map((liveGame) => {
-          // console.log(liveGame, 'im the single live game');
+          console.log(liveGame, 'im the single live game');
           return liveGame;
         });
       }

@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="">
       <h4>Please Register for an account</h4>
 
       <label for="">Name</label>
@@ -19,7 +19,6 @@
 
 <script>
 import { ref } from '@vue/reactivity';
-import useRegister from '../composables/useRegister';
 import { useRouter } from 'vue-router';
 export default {
   setup(props, context) {
@@ -28,18 +27,7 @@ export default {
     const password = ref('');
     const router = useRouter();
 
-    const { error, register } = useRegister();
-
-    const handleSubmit = async () => {
-      await register(email.value, password.value, displayName.value);
-      console.log('user registered');
-      // if (!error.value) {
-      //   context.emit('login');
-      // }
-      router.push('/');
-    };
-
-    return { email, password, displayName, handleSubmit, error };
+    return { email, password, displayName };
   },
 };
 </script>

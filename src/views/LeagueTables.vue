@@ -73,7 +73,7 @@ export default {
 
 <style scoped>
 .first-row {
-  background-color: #555;
+  background-color: #5cdb95;
   color: whitesmoke;
   height: 30px;
 }
@@ -85,6 +85,9 @@ th {
 tr {
   font-weight: 500;
   height: 30px;
+  background-color: #999;
+  color: whitesmoke;
+  font-weight: 900;
 }
 
 @media screen and (max-width: 800px) {
@@ -104,8 +107,8 @@ table {
   margin-bottom: 10px;
 }
 .table-container {
-  background: whitesmoke;
-  height: 80%;
+  background: white;
+
   min-height: 700px;
   width: 90%;
   max-width: 800px;

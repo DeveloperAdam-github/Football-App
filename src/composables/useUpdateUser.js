@@ -7,7 +7,7 @@ const updateUser = async (email, displayName) => {
   error.value = null;
 
   try {
-    const res = await projectAuth.getUser(email);
+    const res = await projectAuth.currentUser();
 
     await res.user.updateProfile({ displayName, email });
     return res;
